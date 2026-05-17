@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Students</h1>
+    <ul>
+        {% for student in students %}
+            <li>{{student.name}} - Score: {{student.score}} - Hours {{student.hours_studied}}</li>
+        {% empty %}
+            <li>No students</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
