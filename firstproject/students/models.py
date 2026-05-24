@@ -1,14 +1,5 @@
 from django.db import models
 
-class Student(models.Model):
-    name = models.CharField(max_length=100)
-    age = models.IntegerField()
-    score = models.IntegerField()
-    hours_studied = models.IntegerField()
-
-
-    def __str__(self):
-        return self.name
 
 class Teacher(models.Model):
     name = models.CharField(max_length=100)
@@ -17,6 +8,7 @@ class Teacher(models.Model):
     def __str__(self):
         return self.name
 
+
 class Course(models.Model):
     title = models.CharField(max_length=100)
     difficulty = models.IntegerField()
@@ -24,11 +16,25 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-teacher = models.ForeignKey(Teacher,
-                            on_delete=models.CASCADE,
-                            related_name='students',
-                            null=True,
-                            blank=True,)
 
-course = models.ManyToManyField(Course,
-                                related_name='students',)
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    score = models.IntegerField()
+    hours_studied = models.IntegerField()
+
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE,
+        related_name='students',
+        null=True,
+        blank=True
+    )
+
+    course = models.ManyToManyField(
+        Course,
+        related_name='students'
+    )
+
+    def __str__(self):
+        return self.name
